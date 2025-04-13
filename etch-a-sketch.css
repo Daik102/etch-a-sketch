@@ -9,22 +9,28 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.adjust {
-  display: block;
-  margin: 80px auto 0;
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin: 80px 0 0;
+}
+
+button {
   padding:8px 16px;
   border: none;
   border-radius: 4px;
   font-size: 24px;
   font-weight: 600;
-  background-color: orangered;
-  color: aliceblue;
+  transition: 0.15s;
   cursor: pointer;
+  background-color: aliceblue;
+  color: orangered;
 }
 
-.adjust:hover {
-  background-color: rgb(255, 99, 0);
-  transition: 0.15s;
+button:hover {
+  background-color: orangered;
+  color: aliceblue;
 }
 
 .container {

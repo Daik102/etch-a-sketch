@@ -13,21 +13,45 @@ function createGrid(num) {
     block.style.height = `calc(40px * (16 / ${num})`;
     container.appendChild(block);
   }
+
+  const blocks = document.querySelectorAll('.block');
+
+  blocks.forEach(block => {
+    block.addEventListener('mouseenter', () => {
+      block.classList.add('hovering');
+    });
+  });
+
+  const clear = document.querySelector('.clear');
+
+  clear.addEventListener('click', () => {
+    blocks.forEach(block => {
+      block.classList.remove('hovering');
+    });
+});
 }
 
 createGrid();
 
-const blocks = document.querySelectorAll('.block');
-blocks.forEach(block => {
-  block.addEventListener('mouseenter', () => {
-    block.classList.add('hovering');
-  });
-});
-
 const adjust = document.querySelector('.adjust');
 
 adjust.addEventListener('click', () => {
-  const input = prompt('Number of squares per side? (Max: 100)');
+  const input = Number(prompt('Number of squares per side? (Max: 100)'));
+  if (isNaN(input)) {
+    alert('Please input number');
+    return;
+  } else if (!input) {
+    return;
+  } else if (input > 100) {
+    alert('Max number is 100');
+    return;
+  } else if (input < 1) {
+    alert('Min number is 1');
+    return;
+  }  else if (!Number.isInteger(input)) {
+    alert('Please input integer');
+    return;
+  }
   container.textContent = '';
   createGrid(input);
 });
