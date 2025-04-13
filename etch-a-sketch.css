@@ -3,3 +3,45 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  background-color: #111;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.adjust {
+  display: block;
+  margin: 80px auto 0;
+  padding:8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 24px;
+  font-weight: 600;
+  background-color: orangered;
+  color: aliceblue;
+  cursor: pointer;
+}
+
+.adjust:hover {
+  background-color: rgb(255, 99, 0);
+  transition: 0.15s;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 640px;
+  margin: 60px auto;
+  background-color: aliceblue;
+}
+
+.block {
+  width: 40px;
+  height: 40px;
+  background-color: aliceblue;
+  border: 1px solid orangered;
+}
+
+.hovering {
+  background-color: orangered;
+}
