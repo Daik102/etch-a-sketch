@@ -1,1 +1,1 @@
-# etch-a-sketch
+This is an etch-a-sketch project for the Odin project.
