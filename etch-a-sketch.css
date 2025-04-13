@@ -5,15 +5,21 @@
 }
 
 body {
-  background-color: #111;
+  background-color: #222;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  margin: 40px 0;
+  color: orangered;
+  font-size: 40px;
+  text-align: center;
 }
 
 .btn-container {
   display: flex;
   justify-content: center;
   gap: 24px;
-  margin: 80px 0 0;
 }
 
 button {
@@ -24,13 +30,14 @@ button {
   font-weight: 600;
   transition: 0.15s;
   cursor: pointer;
-  background-color: aliceblue;
+  background-color: azure;
   color: orangered;
+  border: 2px solid orangered;
 }
 
 button:hover {
   background-color: orangered;
-  color: aliceblue;
+  color: azure;
 }
 
 .container {
@@ -38,13 +45,16 @@ button:hover {
   flex-wrap: wrap;
   width: 640px;
   margin: 60px auto;
-  background-color: aliceblue;
+  background-color: azure;
 }
 
 .block {
   width: 40px;
   height: 40px;
-  background-color: aliceblue;
+  background-color: azure;
+}
+
+.lining {
   border: 1px solid orangered;
 }
 

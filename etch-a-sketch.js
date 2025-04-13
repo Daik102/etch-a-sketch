@@ -1,5 +1,6 @@
 const container = document.querySelector('.container');
 let num;
+let drawing;
 
 function createGrid(num) {
   if (!num) {
@@ -16,9 +17,34 @@ function createGrid(num) {
 
   const blocks = document.querySelectorAll('.block');
 
+  const line = document.querySelector('.line');
+
+  line.addEventListener('click', () => {
+    blocks.forEach(block => {
+      block.classList.toggle('lining');
+    });
+  });
+
+  blocks.forEach(block => {
+    block.addEventListener('mousedown', () => {
+      block.classList.add('hovering');
+      drawing = true;
+    });
+  });
+
+  document.addEventListener('mouseup', () => {
+    drawing = false;
+  });
+
+  container.addEventListener('drag', () => {
+    drawing = false;
+  });
+
   blocks.forEach(block => {
     block.addEventListener('mouseenter', () => {
-      block.classList.add('hovering');
+      if (drawing) {
+        block.classList.add('hovering');
+      }
     });
   });
 
@@ -28,7 +54,7 @@ function createGrid(num) {
     blocks.forEach(block => {
       block.classList.remove('hovering');
     });
-});
+  });
 }
 
 createGrid();
