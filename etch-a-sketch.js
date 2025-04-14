@@ -5,20 +5,17 @@ const gradation = document.querySelector('.gradation');
 const erase = document.querySelector('.erase');
 const clear = document.querySelector('.clear');
 const sizeDisplay = document.querySelector('.size-display');
-let num;
+let num = 16;
 let blocks;
 let drawing;
 let onGradation;
 let onGrid;
 let erasing;
-let counter = 0;
 
 function createGrid() {
-  container.innerHTML = '';
-  if (!num) {
-    num = 16;
-  }
   const squareNum = num * num;
+  container.innerHTML = '';
+
   for (let i = 0; i < squareNum; i++) {
     const block = document.createElement('div');
     block.className = 'block';
@@ -29,17 +26,42 @@ function createGrid() {
       block.classList.add('lining');
     }
   }
-
   sizeDisplay.textContent = `${num} * ${num}`;
-
   blocks = document.querySelectorAll('.block');
-
-  if (!erasing) {
-    paintGrid();
-  }
+  paintGrid();
 }
 
 createGrid();
+
+function addGradation(block) {
+  if (onGradation) {
+    if (block.classList.contains('gr1')) {
+      block.classList.replace('gr1', 'gr2');
+    } else if (block.classList.contains('gr2')) {
+      block.classList.replace('gr2', 'gr3');
+    }  else if (block.classList.contains('gr3')) {
+      block.classList.replace('gr3', 'gr4');
+    }  else if (block.classList.contains('gr4')) {
+      block.classList.replace('gr4', 'gr5');
+    }  else if (block.classList.contains('gr5')) {
+      block.classList.replace('gr5', 'gr6');
+    }  else if (block.classList.contains('gr6')) {
+      block.classList.replace('gr6', 'gr7');
+    }  else if (block.classList.contains('gr7')) {
+      block.classList.replace('gr7', 'gr8');
+    }  else if (block.classList.contains('gr8')) {
+      block.classList.replace('gr8', 'gr9');
+    }  else if (block.classList.contains('gr9')) {
+      block.classList.replace('gr9', 'gr10');
+    }  else if (block.classList.contains('gr10')) {
+      return;
+    } else {
+      block.classList.add('gr1');
+    }
+  } else {
+    block.classList.add('gr10');
+  }
+}
 
 function paintGrid() {
   blocks.forEach(block => {
@@ -47,37 +69,11 @@ function paintGrid() {
       if (erasing) {
         return;
       }
-      if (onGradation) {
-        if (block.classList.contains('gradation1')) {
-          block.classList.replace('gradation1', 'gradation2');
-        } else if (block.classList.contains('gradation2')) {
-          block.classList.replace('gradation2', 'gradation3');
-        }  else if (block.classList.contains('gradation3')) {
-          block.classList.replace('gradation3', 'gradation4');
-        }  else if (block.classList.contains('gradation4')) {
-          block.classList.replace('gradation4', 'gradation5');
-        }  else if (block.classList.contains('gradation5')) {
-          block.classList.replace('gradation5', 'gradation6');
-        }  else if (block.classList.contains('gradation6')) {
-          block.classList.replace('gradation6', 'gradation7');
-        }  else if (block.classList.contains('gradation7')) {
-          block.classList.replace('gradation7', 'gradation8');
-        }  else if (block.classList.contains('gradation8')) {
-          block.classList.replace('gradation8', 'gradation9');
-        }  else if (block.classList.contains('gradation9')) {
-          block.classList.replace('gradation9', 'gradation10');
-        }  else if (block.classList.contains('gradation10')) {
-          return;
-        } else {
-          block.classList.add('gradation1');
-        }
-      } else {
-        block.classList.add('gradation10');
-      }
+      addGradation(block);
       drawing = true;
     });
 
-    document.addEventListener('dragstart', () => {
+    document.addEventListener('dragend', () => {
       drawing = false;
     });
   
@@ -90,41 +86,23 @@ function paintGrid() {
         return;
       }
       if (drawing) {
-        if (onGradation) {
-          if (block.classList.contains('gradation1')) {
-            block.classList.replace('gradation1', 'gradation2');
-          } else if (block.classList.contains('gradation2')) {
-            block.classList.replace('gradation2', 'gradation3');
-          }  else if (block.classList.contains('gradation3')) {
-            block.classList.replace('gradation3', 'gradation4');
-          }  else if (block.classList.contains('gradation4')) {
-            block.classList.replace('gradation4', 'gradation5');
-          }  else if (block.classList.contains('gradation5')) {
-            block.classList.replace('gradation5', 'gradation6');
-          }  else if (block.classList.contains('gradation6')) {
-            block.classList.replace('gradation6', 'gradation7');
-          }  else if (block.classList.contains('gradation7')) {
-            block.classList.replace('gradation7', 'gradation8');
-          }  else if (block.classList.contains('gradation8')) {
-            block.classList.replace('gradation8', 'gradation9');
-          }  else if (block.classList.contains('gradation9')) {
-            block.classList.replace('gradation9', 'gradation10');
-          }  else if (block.classList.contains('gradation10')) {
-            return;
-          } else {
-            block.classList.add('gradation1');
-          }
-        } else {
-          block.classList.add('gradation10');
-        }
+        addGradation(block);
       }
     });
   });
 }
 
+function eraseGrid(block) {
+  if (onGrid) {
+    block.className = 'block lining';
+  } else {
+    block.className = 'block';
+  }
+}
+
 size.addEventListener('click', () => {
   const input = Number(prompt('Number of squares per side? (Max: 100)'));
-  num = input;
+
   if (isNaN(input)) {
     alert('Please input number');
     return;
@@ -140,6 +118,8 @@ size.addEventListener('click', () => {
     alert('Please input integer');
     return;
   }
+
+  num = input;
   createGrid();
 });
 
@@ -177,17 +157,11 @@ erase.addEventListener('click', () => {
       if (!erasing) {
         return;
       }
-
-      if (onGrid) {
-        block.className = 'block lining';
-      } else {
-        block.className = 'block';
-      }
-      
+      eraseGrid(block);
       drawing = true;
     });
 
-    document.addEventListener('dragstart', () => {
+    document.addEventListener('dragend', () => {
       drawing = false;
     });
   
@@ -200,11 +174,7 @@ erase.addEventListener('click', () => {
         return;
       }
       if (drawing) {
-        if (onGrid) {
-          block.className = 'block lining';
-        } else {
-          block.className = 'block';
-        }
+        eraseGrid(block);
       }
     });
   });
@@ -212,10 +182,6 @@ erase.addEventListener('click', () => {
 
 clear.addEventListener('click', () => {
   blocks.forEach(block => {
-    if (onGrid) {
-      block.className = 'block lining';
-    } else {
-      block.className = 'block';
-    }
+    eraseGrid(block);
   });
 });

@@ -67,43 +67,43 @@ button:active {
   border: 1px solid orangered;
 }
 
-.gradation1 {
+.gr1 {
   background-color: rgba(255, 69, 0, 10%); 
 }
 
-.gradation2 {
+.gr2 {
   background-color: rgba(255, 69, 0, 20%); 
 }
 
-.gradation3 {
+.gr3 {
   background-color: rgba(255, 69, 0, 30%); 
 }
 
-.gradation4 {
+.gr4 {
   background-color: rgba(255, 69, 0, 40%); 
 }
 
-.gradation5 {
+.gr5 {
   background-color: rgba(255, 69, 0, 50%); 
 }
 
-.gradation6 {
+.gr6 {
   background-color: rgba(255, 69, 0, 60%); 
 }
  
-.gradation7 {
+.gr7 {
   background-color: rgba(255, 69, 0, 70%); 
 }
  
-.gradation8 {
+.gr8 {
   background-color: rgba(255, 69, 0, 80%); 
 }
  
-.gradation9 {
+.gr9 {
   background-color: rgba(255, 69, 0, 90%); 
 }
 
-.gradation10 {
+.gr10 {
   background-color: rgba(255, 69, 0, 100%); 
 }
 
@@ -115,7 +115,7 @@ button:active {
 }
 
 small {
-  margin-top: 8px;
+  margin-top: 12px;
   display: block;
   text-align: center;
 }
