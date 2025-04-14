@@ -2,15 +2,18 @@ const container = document.querySelector('.container');
 const size = document.querySelector('.size');
 const grid = document.querySelector('.grid');
 const gradation = document.querySelector('.gradation');
+const erase = document.querySelector('.erase');
 const clear = document.querySelector('.clear');
 const sizeDisplay = document.querySelector('.size-display');
 let num;
+let blocks;
 let drawing;
 let onGradation;
 let onGrid;
+let erasing;
 let counter = 0;
 
-function createGrid(num) {
+function createGrid() {
   container.innerHTML = '';
   if (!num) {
     num = 16;
@@ -29,32 +32,21 @@ function createGrid(num) {
 
   sizeDisplay.textContent = `${num} * ${num}`;
 
-  const blocks = document.querySelectorAll('.block');
+  blocks = document.querySelectorAll('.block');
 
-  grid.addEventListener('click', () => {
-    if (onGrid) {
-      onGrid = false;
-    } else {
-      onGrid = true;
-    }
-    grid.classList.toggle('active');
-    blocks.forEach(block => {
-      block.classList.toggle('lining');
-    });
-  });
+  if (!erasing) {
+    paintGrid();
+  }
+}
 
-  gradation.addEventListener('click', () => {
-    if (onGradation) {
-      onGradation = false;
-    } else {
-      onGradation = true;
-    }
-    gradation.classList.toggle('active');
-  });
+createGrid();
 
+function paintGrid() {
   blocks.forEach(block => {
     block.addEventListener('mousedown', () => {
-      console.log(onGradation);
+      if (erasing) {
+        return;
+      }
       if (onGradation) {
         if (block.classList.contains('gradation1')) {
           block.classList.replace('gradation1', 'gradation2');
@@ -94,6 +86,9 @@ function createGrid(num) {
     });
 
     block.addEventListener('mouseenter', () => {
+      if (erasing) {
+        return;
+      }
       if (drawing) {
         if (onGradation) {
           if (block.classList.contains('gradation1')) {
@@ -125,22 +120,11 @@ function createGrid(num) {
       }
     });
   });
-
-  clear.addEventListener('click', () => {
-    blocks.forEach(block => {
-      if (onGrid) {
-        block.className = 'block lining';
-      } else {
-        block.className = 'block';
-      }
-    });
-  });
 }
-
-createGrid();
 
 size.addEventListener('click', () => {
   const input = Number(prompt('Number of squares per side? (Max: 100)'));
+  num = input;
   if (isNaN(input)) {
     alert('Please input number');
     return;
@@ -156,5 +140,82 @@ size.addEventListener('click', () => {
     alert('Please input integer');
     return;
   }
-  createGrid(input);
+  createGrid();
+});
+
+grid.addEventListener('click', () => {
+  if (onGrid) {
+    onGrid = false;
+  } else {
+    onGrid = true;
+  }
+  grid.classList.toggle('active');
+  blocks.forEach(block => {
+    block.classList.toggle('lining');
+  });
+});
+
+gradation.addEventListener('click', () => {
+  if (onGradation) {
+    onGradation = false;
+  } else {
+    onGradation = true;
+  }
+  gradation.classList.toggle('active');
+});
+
+erase.addEventListener('click', () => {
+  if (erasing) {
+    erasing = false;
+  } else {
+    erasing = true;
+  }
+  erase.classList.toggle('active');
+
+  blocks.forEach(block => {
+    block.addEventListener('mousedown', () => {
+      if (!erasing) {
+        return;
+      }
+
+      if (onGrid) {
+        block.className = 'block lining';
+      } else {
+        block.className = 'block';
+      }
+      
+      drawing = true;
+    });
+
+    document.addEventListener('dragstart', () => {
+      drawing = false;
+    });
+  
+    document.addEventListener('mouseup', () => {
+      drawing = false;
+    });
+
+    block.addEventListener('mouseenter', () => {
+      if (!erasing) {
+        return;
+      }
+      if (drawing) {
+        if (onGrid) {
+          block.className = 'block lining';
+        } else {
+          block.className = 'block';
+        }
+      }
+    });
+  });
+});
+
+clear.addEventListener('click', () => {
+  blocks.forEach(block => {
+    if (onGrid) {
+      block.className = 'block lining';
+    } else {
+      block.className = 'block';
+    }
+  });
 });
