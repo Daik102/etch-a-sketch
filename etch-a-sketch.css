@@ -64,47 +64,47 @@ button:active {
 }
 
 .lining {
-  border: 1px solid orangered;
+  border: 1px solid rgba(255, 69, 0, 0.5);
 }
 
 .gr1 {
-  background-color: rgba(255, 69, 0, 10%); 
+  background-color: rgba(255, 69, 0, 0.1); 
 }
 
 .gr2 {
-  background-color: rgba(255, 69, 0, 20%); 
+  background-color: rgba(255, 69, 0, 0.2); 
 }
 
 .gr3 {
-  background-color: rgba(255, 69, 0, 30%); 
+  background-color: rgba(255, 69, 0, 0.3); 
 }
 
 .gr4 {
-  background-color: rgba(255, 69, 0, 40%); 
+  background-color: rgba(255, 69, 0, 0.4); 
 }
 
 .gr5 {
-  background-color: rgba(255, 69, 0, 50%); 
+  background-color: rgba(255, 69, 0, 0.5); 
 }
 
 .gr6 {
-  background-color: rgba(255, 69, 0, 60%); 
+  background-color: rgba(255, 69, 0, 0.6); 
 }
  
 .gr7 {
-  background-color: rgba(255, 69, 0, 70%); 
+  background-color: rgba(255, 69, 0, 0.7); 
 }
  
 .gr8 {
-  background-color: rgba(255, 69, 0, 80%); 
+  background-color: rgba(255, 69, 0, 0.8); 
 }
  
 .gr9 {
-  background-color: rgba(255, 69, 0, 90%); 
+  background-color: rgba(255, 69, 0, 0.9); 
 }
 
 .gr10 {
-  background-color: rgba(255, 69, 0, 100%); 
+  background-color: rgba(255, 69, 0, 1); 
 }
 
 .size-display {
