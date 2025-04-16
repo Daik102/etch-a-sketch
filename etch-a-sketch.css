@@ -11,7 +11,9 @@ body {
 
 h1 {
   margin: 56px 0 36px;
-  color: orangered;
+  background: linear-gradient(orangered 30%, azure);
+  color: transparent;
+  background-clip: text;
   font-size: 46px;
   text-align: center;
 }
@@ -23,7 +25,7 @@ h1 {
 }
 
 button {
-  padding:8px 16px;
+  padding: 8px 12px;
   border: none;
   border-radius: 4px;
   font-size: 24px;
@@ -32,20 +34,13 @@ button {
   cursor: pointer;
   background-color: azure;
   color: orangered;
-  border: 2px solid orangered;
+  box-shadow: inset -4px -4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.active {
+.active, button:active {
   background-color: orangered;
   color: azure;
-}
-
-button:hover {
-  opacity: 0.85;
-}
-
-button:active {
-  background-color: azure;
+  box-shadow: inset -4px -4px 4px 0px rgba(0, 0, 0, 0.3);
 }
 
 .container {
@@ -68,47 +63,47 @@ button:active {
 }
 
 .gr1 {
-  background-color: rgba(255, 69, 0, 0.1); 
+  background-color: rgba(255, 69, 0, 0.1);
 }
 
 .gr2 {
-  background-color: rgba(255, 69, 0, 0.2); 
+  background-color: rgba(255, 69, 0, 0.2);
 }
 
 .gr3 {
-  background-color: rgba(255, 69, 0, 0.3); 
+  background-color: rgba(255, 69, 0, 0.3);
 }
 
 .gr4 {
-  background-color: rgba(255, 69, 0, 0.4); 
+  background-color: rgba(255, 69, 0, 0.4);
 }
 
 .gr5 {
-  background-color: rgba(255, 69, 0, 0.5); 
+  background-color: rgba(255, 69, 0, 0.5);
 }
 
 .gr6 {
-  background-color: rgba(255, 69, 0, 0.6); 
+  background-color: rgba(255, 69, 0, 0.6);
 }
  
 .gr7 {
-  background-color: rgba(255, 69, 0, 0.7); 
+  background-color: rgba(255, 69, 0, 0.7);
 }
  
 .gr8 {
-  background-color: rgba(255, 69, 0, 0.8); 
+  background-color: rgba(255, 69, 0, 0.8);
 }
  
 .gr9 {
-  background-color: rgba(255, 69, 0, 0.9); 
+  background-color: rgba(255, 69, 0, 0.9);
 }
 
 .gr10 {
-  background-color: rgba(255, 69, 0, 1); 
+  background-color: rgba(255, 69, 0, 1);
 }
 
 .size-display {
-  color: azure;
+  color: #ccc;
   width: 640px;
   margin: 0 auto;
   text-align: right;
@@ -121,6 +116,6 @@ small {
 }
 
 a {
-  color: azure;
+  color: #ccc;
   text-decoration: none;
 }
