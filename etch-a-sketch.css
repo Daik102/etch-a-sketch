@@ -2,64 +2,84 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body {
-  background-color: #222;
+  font-size: 10px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
+:root {
+  --main-theme: orangered;
+  --sub-theme: azure;
+  --paragraph-theme: #ccc;
+}
+
+body {
+  background-color: rgb(61, 129, 185);
+}
+
 h1 {
-  margin: 56px 0 36px;
-  background: linear-gradient(orangered 30%, azure);
-  color: transparent;
+  margin-top: 4%;
+  color: var(--main-theme);
+  text-shadow: 0.4rem 0.4rem rgba(0, 0, 0, 0.2);
   background-clip: text;
-  font-size: 46px;
+  font-size: 4rem;
   text-align: center;
 }
 
-.btn-container {
+.wrapper {
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: 4rem;
+  margin: 3.6rem 0 1.2rem;
+}
+
+.btn-container {
+  width: 12rem;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 2.8rem;
 }
 
 button {
-  padding: 8px 12px;
+  padding: 1.2rem 1.6rem;
   border: none;
-  border-radius: 4px;
-  font-size: 24px;
+  border-radius: 0.4rem;
+  font-size: 2rem;
   font-weight: 600;
   transition: 0.15s;
   cursor: pointer;
-  background-color: azure;
-  color: orangered;
-  box-shadow: inset -4px -4px 4px 0px rgba(0, 0, 0, 0.25);
+  background-color: var(--sub-theme);
+  color: var(--main-theme);
+  box-shadow: inset -0.4rem -0.4rem 0.4rem rgba(0, 0, 0, 0.3), 0.8rem 0.8rem 0.8rem rgba(0, 0, 0, 0.25);
 }
 
 .active, button:active {
-  background-color: orangered;
-  color: azure;
-  box-shadow: inset -4px -4px 4px 0px rgba(0, 0, 0, 0.3);
+  background-color: var(--main-theme);
+  color: var(--sub-theme);
 }
 
 .container {
   display: flex;
   flex-wrap: wrap;
-  width: 640px;
-  margin: 48px auto 12px;
-  background-color: azure;
+  width: 64rem;
+  background-color: var(--sub-theme);
   cursor: crosshair;
 }
 
+.dummy-container {
+  width: 12rem;
+  height: 12rem;
+}
+
 .block {
-  width: 40px;
-  height: 40px;
-  background-color: azure;
+  width: 4rem;
+  height: 4rem;
+  background-color: var(--sub-theme);
 }
 
 .lining {
-  border: 1px solid rgba(255, 69, 0, 0.5);
+  border: 0.1rem dotted rgba(255, 69, 0, 0.4);
 }
 
 .gr1 {
@@ -103,19 +123,21 @@ button {
 }
 
 .size-display {
-  color: #ccc;
-  width: 640px;
+  color: var(--paragraph-theme);
+  width: 64rem;
   margin: 0 auto;
   text-align: right;
+  font-size: 1.6rem;
 }
 
 small {
-  margin-top: 12px;
+  margin: 2rem 0;
   display: block;
   text-align: center;
 }
 
 a {
-  color: #ccc;
+  color: var(--paragraph-theme);
+  font-size: 1.6rem;
   text-decoration: none;
 }

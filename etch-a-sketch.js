@@ -19,8 +19,8 @@ function createGrid() {
   for (let i = 0; i < squareNum; i++) {
     const block = document.createElement('div');
     block.className = 'block';
-    block.style.width = `calc(40px * (16 / ${num})`;
-    block.style.height = `calc(40px * (16 / ${num})`;
+    block.style.width = `calc(4rem * (16 / ${num})`;
+    block.style.height = `calc(4rem * (16 / ${num})`;
     container.appendChild(block);
     if (onGrid) {
       block.classList.add('lining');
