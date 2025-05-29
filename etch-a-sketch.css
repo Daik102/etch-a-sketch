@@ -9,17 +9,18 @@
 :root {
   --main-theme: orangered;
   --sub-theme: azure;
+  --background-theme: rgb(61, 129, 185);
   --paragraph-theme: #ccc;
 }
 
 body {
-  background-color: rgb(61, 129, 185);
+  background-color: var(--background-theme);
 }
 
 h1 {
   margin-top: 4%;
   color: var(--main-theme);
-  text-shadow: 0.2rem 0.2rem rgba(240, 255, 255, 0.8), 0.8rem 0.8rem rgba(0, 0, 0, 0.2);
+  text-shadow: 0.2rem 0.2rem rgba(240, 255, 255, 0.7), 0.8rem 0.8rem rgba(0, 0, 0, 0.2);
   background-clip: text;
   font-size: 4rem;
   text-align: center;
@@ -79,7 +80,7 @@ button {
 }
 
 .lining {
-  border: 0.1rem dotted rgba(255, 69, 0, 0.4);
+  border: 0.1rem dotted rgba(0, 0, 0, 0.15);
 }
 
 .gr1 {

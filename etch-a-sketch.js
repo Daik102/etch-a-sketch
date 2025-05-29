@@ -1,16 +1,16 @@
-const container = document.querySelector('.container');
 const size = document.querySelector('.size');
 const grid = document.querySelector('.grid');
 const gradation = document.querySelector('.gradation');
 const erase = document.querySelector('.erase');
 const clear = document.querySelector('.clear');
+const container = document.querySelector('.container');
 const sizeDisplay = document.querySelector('.size-display');
 let num = 16;
 let blocks;
 let drawing;
-let onGradation;
 let onGrid;
-let erasing;
+let onGradation;
+let onErase;
 
 function createGrid() {
   const squareNum = num * num;
@@ -26,12 +26,41 @@ function createGrid() {
       block.classList.add('lining');
     }
   }
-  sizeDisplay.textContent = `${num} * ${num}`;
   blocks = document.querySelectorAll('.block');
+  sizeDisplay.textContent = `${num} * ${num}`;
   paintGrid();
 }
 
 createGrid();
+
+function paintGrid() {
+  blocks.forEach(block => {
+    block.addEventListener('mousedown', () => {
+      if (onErase) {
+        return;
+      }
+      addGradation(block);
+      drawing = true;
+    });
+
+    document.body.addEventListener('dragstart', (e) => {
+      e.preventDefault();
+    });
+  
+    document.body.addEventListener('mouseup', () => {
+      drawing = false;
+    });
+
+    block.addEventListener('mouseenter', () => {
+      if (onErase) {
+        return;
+      }
+      if (drawing) {
+        addGradation(block);
+      }
+    });
+  });
+}
 
 function addGradation(block) {
   if (onGradation) {
@@ -61,35 +90,6 @@ function addGradation(block) {
   } else {
     block.classList.add('gr10');
   }
-}
-
-function paintGrid() {
-  blocks.forEach(block => {
-    block.addEventListener('mousedown', () => {
-      if (erasing) {
-        return;
-      }
-      addGradation(block);
-      drawing = true;
-    });
-
-    document.addEventListener('dragend', () => {
-      drawing = false;
-    });
-  
-    document.addEventListener('mouseup', () => {
-      drawing = false;
-    });
-
-    block.addEventListener('mouseenter', () => {
-      if (erasing) {
-        return;
-      }
-      if (drawing) {
-        addGradation(block);
-      }
-    });
-  });
 }
 
 function eraseGrid(block) {
@@ -145,32 +145,28 @@ gradation.addEventListener('click', () => {
 });
 
 erase.addEventListener('click', () => {
-  if (erasing) {
-    erasing = false;
+  if (onErase) {
+    onErase = false;
   } else {
-    erasing = true;
+    onErase = true;
   }
   erase.classList.toggle('active');
 
   blocks.forEach(block => {
     block.addEventListener('mousedown', () => {
-      if (!erasing) {
+      if (!onErase) {
         return;
       }
       eraseGrid(block);
       drawing = true;
     });
-
-    document.addEventListener('dragend', () => {
-      drawing = false;
-    });
   
-    document.addEventListener('mouseup', () => {
+    document.body.addEventListener('mouseup', () => {
       drawing = false;
     });
 
     block.addEventListener('mouseenter', () => {
-      if (!erasing) {
+      if (!onErase) {
         return;
       }
       if (drawing) {
