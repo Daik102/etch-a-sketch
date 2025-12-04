@@ -9,7 +9,7 @@
 :root {
   --main-theme: orangered;
   --sub-theme: azure;
-  --background-theme: rgb(61, 129, 185);
+  --background-theme: #3d81b9;
   --paragraph-theme: #ccc;
 }
 
@@ -120,7 +120,7 @@ button {
 }
 
 .gr10 {
-  background-color: rgba(255, 69, 0, 1);
+  background-color: var(--main-theme);
 }
 
 .size-display {

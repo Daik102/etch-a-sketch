@@ -22,10 +22,9 @@ function createGrid() {
     block.style.width = `calc(4rem * (16 / ${num})`;
     block.style.height = `calc(4rem * (16 / ${num})`;
     container.appendChild(block);
-    if (onGrid) {
-      block.classList.add('lining');
-    }
+    if (onGrid) block.classList.add('lining');
   }
+
   blocks = document.querySelectorAll('.block');
   sizeDisplay.textContent = `${num} * ${num}`;
   paintGrid();
@@ -36,9 +35,7 @@ createGrid();
 function paintGrid() {
   blocks.forEach(block => {
     block.addEventListener('mousedown', () => {
-      if (onErase) {
-        return;
-      }
+      if (onErase) return;
       addGradation(block);
       drawing = true;
     });
@@ -52,12 +49,8 @@ function paintGrid() {
     });
 
     block.addEventListener('mouseenter', () => {
-      if (onErase) {
-        return;
-      }
-      if (drawing) {
-        addGradation(block);
-      }
+      if (onErase) return;
+      if (drawing) addGradation(block);
     });
   });
 }
@@ -93,30 +86,22 @@ function addGradation(block) {
 }
 
 function eraseGrid(block) {
-  if (onGrid) {
-    block.className = 'block lining';
-  } else {
-    block.className = 'block';
-  }
+  onGrid ? block.className = 'block lining' : block.className = 'block';
 }
 
 size.addEventListener('click', () => {
   const input = Number(prompt('Number of squares per side? (Max: 100)'));
 
   if (isNaN(input)) {
-    alert('Please input number');
-    return;
+    return alert('Please input number');
   } else if (!input) {
     return;
   } else if (input > 100) {
-    alert('Max number is 100');
-    return;
+    return alert('Max number is 100');
   } else if (input < 1) {
-    alert('Min number is 1');
-    return;
+    return alert('Min number is 1');
   }  else if (!Number.isInteger(input)) {
-    alert('Please input integer');
-    return;
+    return alert('Please input integer');
   }
 
   num = input;
@@ -124,11 +109,7 @@ size.addEventListener('click', () => {
 });
 
 grid.addEventListener('click', () => {
-  if (onGrid) {
-    onGrid = false;
-  } else {
-    onGrid = true;
-  }
+  onGrid ? onGrid = false : onGrid = true;
   grid.classList.toggle('active');
   blocks.forEach(block => {
     block.classList.toggle('lining');
@@ -136,27 +117,17 @@ grid.addEventListener('click', () => {
 });
 
 gradation.addEventListener('click', () => {
-  if (onGradation) {
-    onGradation = false;
-  } else {
-    onGradation = true;
-  }
+  onGradation ? onGradation = false : onGradation = true;
   gradation.classList.toggle('active');
 });
 
 erase.addEventListener('click', () => {
-  if (onErase) {
-    onErase = false;
-  } else {
-    onErase = true;
-  }
+  onErase ? onErase = false : onErase = true;
   erase.classList.toggle('active');
 
   blocks.forEach(block => {
     block.addEventListener('mousedown', () => {
-      if (!onErase) {
-        return;
-      }
+      if (!onErase) return;
       eraseGrid(block);
       drawing = true;
     });
@@ -166,12 +137,8 @@ erase.addEventListener('click', () => {
     });
 
     block.addEventListener('mouseenter', () => {
-      if (!onErase) {
-        return;
-      }
-      if (drawing) {
-        eraseGrid(block);
-      }
+      if (!onErase) return;
+      if (drawing) eraseGrid(block);
     });
   });
 });
