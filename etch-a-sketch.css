@@ -2,143 +2,215 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-size: 10px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 :root {
-  --main-theme: orangered;
-  --sub-theme: azure;
+  --black-theme: #000;
+  --gray-theme: #666;
+  --lightblue-theme: #6faddf;
+  --white-theme: #f0ffff;
+  --blue-theme: #2259ff;
   --background-theme: #3d81b9;
-  --paragraph-theme: #ccc;
+  --shadow-theme: rgba(0, 0, 0, 0.3);
+  --grid-theme: rgba(0, 0, 0, 0.15);
+}
+
+html {
+  font-size: 10px;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  margin: -4rem 0 0;
   background-color: var(--background-theme);
 }
 
-h1 {
-  margin-top: 4%;
-  color: var(--main-theme);
-  text-shadow: 0.2rem 0.2rem rgba(240, 255, 255, 0.7), 0.8rem 0.8rem rgba(0, 0, 0, 0.2);
-  background-clip: text;
-  font-size: 4rem;
+.title {
   text-align: center;
+  font-size: 3.4rem;
+  color: var(--white-theme);
+  text-shadow: 0.4rem 0.4rem var(--lightblue-theme);
 }
 
 .wrapper {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 4rem;
-  margin: 3.6rem 0 1.2rem;
+  margin: 3.2rem 0 -2.8rem;
 }
 
 .btn-container {
-  width: 12rem;
-  align-self: flex-start;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 2.8rem;
+  width: 41.6rem;
 }
 
-button {
-  padding: 1.2rem 1.6rem;
+.btn,
+.color-picker {
+  width: 12rem;
+  box-shadow: inset -0.4rem -0.4rem 0.4rem var(--shadow-theme), 0.8rem 0.8rem 0.8rem var(--shadow-theme);
+  cursor: pointer;
+}
+
+.btn {
+  padding: 0.4rem 0 0.2rem;
+  background-color: var(--white-theme);
   border: none;
   border-radius: 0.4rem;
-  font-size: 2rem;
-  font-weight: 600;
   transition: 0.15s;
-  cursor: pointer;
-  background-color: var(--sub-theme);
-  color: var(--main-theme);
-  box-shadow: inset -0.4rem -0.4rem 0.4rem rgba(0, 0, 0, 0.3), 0.8rem 0.8rem 0.8rem rgba(0, 0, 0, 0.25);
 }
 
-.active, button:active {
-  background-color: var(--main-theme);
-  color: var(--sub-theme);
+.icon {
+  width: 3.6rem;
+  filter: invert(39%) sepia(5%) saturate(55%) hue-rotate(317deg) brightness(98%) contrast(85%);
+}
+
+.active-btn {
+  background-color: var(--blue-theme);
+}
+
+.active-icon {
+  filter: invert(97%) sepia(7%) saturate(336%) hue-rotate(93deg) brightness(103%) contrast(101%);
+}
+
+.color-picker {
+  height: 5rem;
 }
 
 .container {
   display: flex;
   flex-wrap: wrap;
-  width: 64rem;
-  background-color: var(--sub-theme);
+  width: 48rem;
+  background-color: var(--white-theme);
   cursor: crosshair;
 }
 
-.dummy-container {
-  width: 12rem;
-  height: 12rem;
-}
-
-.block {
-  width: 4rem;
-  height: 4rem;
-  background-color: var(--sub-theme);
+.erasing {
+  cursor: grabbing;
 }
 
 .lining {
-  border: 0.1rem dotted rgba(0, 0, 0, 0.15);
-}
-
-.gr1 {
-  background-color: rgba(255, 69, 0, 0.1);
-}
-
-.gr2 {
-  background-color: rgba(255, 69, 0, 0.2);
-}
-
-.gr3 {
-  background-color: rgba(255, 69, 0, 0.3);
-}
-
-.gr4 {
-  background-color: rgba(255, 69, 0, 0.4);
-}
-
-.gr5 {
-  background-color: rgba(255, 69, 0, 0.5);
-}
-
-.gr6 {
-  background-color: rgba(255, 69, 0, 0.6);
-}
- 
-.gr7 {
-  background-color: rgba(255, 69, 0, 0.7);
-}
- 
-.gr8 {
-  background-color: rgba(255, 69, 0, 0.8);
-}
- 
-.gr9 {
-  background-color: rgba(255, 69, 0, 0.9);
-}
-
-.gr10 {
-  background-color: var(--main-theme);
+  border: 0.1rem dotted var(--grid-theme);
 }
 
 .size-display {
-  color: var(--paragraph-theme);
-  width: 64rem;
-  margin: 0 auto;
   text-align: right;
+  width: 48rem;
+  margin: 0 auto;
+  font-weight: 600;
   font-size: 1.6rem;
+  color: var(--white-theme);
 }
 
-small {
-  margin: 1.2rem 0 2rem;
-  display: block;
-  text-align: center;
+.footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.2rem;
 }
 
-a {
-  color: var(--paragraph-theme);
+.footer a {
+  padding: 0.2rem;
+  font-weight: 600;
   font-size: 1.6rem;
+  color: var(--white-theme);
   text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+/* For smartphones in portrait mode */
+@media screen and (orientation: portrait) {
+  html {
+    font-size: 5.5px;
+  }
+}
+
+@media screen and (orientation: portrait) and (min-width: 20.01rem) {
+  html {
+    font-size: 6.5px;
+  }
+}
+
+@media screen and (orientation: portrait) and (min-width: 24rem) and (min-height: calc(50rem - 0rem)) {
+  html {
+    font-size: 7px;
+  }
+}
+
+@media screen and (orientation: portrait) and (min-width: 24rem) and (min-height: calc(54rem - 0rem)) {
+  html {
+    font-size: 7.5px;
+  }
+}
+/* For tablets in portrait mode */
+@media screen and (orientation: portrait) and (min-width: 48rem) {
+  html {
+    font-size: 10px;
+  }
+}
+/* For smartphones in landscape mode */
+@media screen and (orientation: landscape) {
+  html {
+    font-size: 5.5px;
+  }
+
+  body {
+    margin: 6rem 0;
+  }
+
+  .wrapper {
+    flex-direction: row;
+    margin: 3.2rem 0 1.2rem;
+  }
+
+  .btn-container,
+  .dummy-container {
+    width: 12rem;
+  }
+
+  .btn-container {
+    flex-direction: column;
+  }
+}
+
+@media screen and (orientation: landscape) and (min-width: 41rem) {
+  html {
+    font-size: 6.5px;
+  }
+}
+
+@media screen and (orientation: landscape) and (min-width: 47rem) {
+  html {
+    font-size: 7px;
+  }
+}
+
+@media screen and (orientation: landscape) and (min-width: 53rem) {
+  html {
+    font-size: 7.5px;
+  }
+}
+/* For Nest Hub */
+@media screen and (orientation: landscape) and (min-width: 64rem) {
+  html {
+    font-size: 8.5px;
+  }
+
+  body {
+    margin: -1.2rem 0 0;
+  }
+}
+/* For tablets in landscape mode and laptops */
+@media screen and (orientation: landscape) and (min-width: 64rem) and (min-height: calc(48rem - 0rem)) {
+  html {
+    font-size: 10px;
+  }
 }

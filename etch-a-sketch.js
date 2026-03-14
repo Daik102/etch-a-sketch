@@ -1,150 +1,246 @@
-const size = document.querySelector('.size');
-const grid = document.querySelector('.grid');
-const gradation = document.querySelector('.gradation');
-const erase = document.querySelector('.erase');
-const clear = document.querySelector('.clear');
-const container = document.querySelector('.container');
-const sizeDisplay = document.querySelector('.size-display');
-let num = 16;
-let blocks;
-let drawing;
-let onGrid;
-let onGradation;
-let onErase;
+function addGradation(cell) {
+  const currentColor = colorPicker.value;
 
-function createGrid() {
-  const squareNum = num * num;
-  container.innerHTML = '';
-
-  for (let i = 0; i < squareNum; i++) {
-    const block = document.createElement('div');
-    block.className = 'block';
-    block.style.width = `calc(4rem * (16 / ${num})`;
-    block.style.height = `calc(4rem * (16 / ${num})`;
-    container.appendChild(block);
-    if (onGrid) block.classList.add('lining');
+  function resetGrade() {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach((cell) => cell.dataset.grade = '0');
+    previousColor = currentColor;
   }
 
-  blocks = document.querySelectorAll('.block');
-  sizeDisplay.textContent = `${num} * ${num}`;
-  paintGrid();
-}
+  if (gradationBtn.classList.contains('active-btn')) {
+    if (previousColor !== currentColor) {
+      resetGrade();
+    }
 
-createGrid();
-
-function paintGrid() {
-  blocks.forEach(block => {
-    block.addEventListener('mousedown', () => {
-      if (onErase) return;
-      addGradation(block);
-      drawing = true;
-    });
-
-    document.body.addEventListener('dragstart', (e) => {
-      e.preventDefault();
-    });
-  
-    document.body.addEventListener('mouseup', () => {
-      drawing = false;
-    });
-
-    block.addEventListener('mouseenter', () => {
-      if (onErase) return;
-      if (drawing) addGradation(block);
-    });
-  });
-}
-
-function addGradation(block) {
-  if (onGradation) {
-    if (block.classList.contains('gr1')) {
-      block.classList.replace('gr1', 'gr2');
-    } else if (block.classList.contains('gr2')) {
-      block.classList.replace('gr2', 'gr3');
-    }  else if (block.classList.contains('gr3')) {
-      block.classList.replace('gr3', 'gr4');
-    }  else if (block.classList.contains('gr4')) {
-      block.classList.replace('gr4', 'gr5');
-    }  else if (block.classList.contains('gr5')) {
-      block.classList.replace('gr5', 'gr6');
-    }  else if (block.classList.contains('gr6')) {
-      block.classList.replace('gr6', 'gr7');
-    }  else if (block.classList.contains('gr7')) {
-      block.classList.replace('gr7', 'gr8');
-    }  else if (block.classList.contains('gr8')) {
-      block.classList.replace('gr8', 'gr9');
-    }  else if (block.classList.contains('gr9')) {
-      block.classList.replace('gr9', 'gr10');
-    }  else if (block.classList.contains('gr10')) {
-      return;
-    } else {
-      block.classList.add('gr1');
+    if (cell.dataset.grade < 10) {
+      // Add opacity from 10% to 100%.
+      const hexConvertArray = ['19', '33', '4C', '66', '80', '99', 'B2', 'CC', 'E5', 'FF'];
+      const currentGrade = hexConvertArray[cell.dataset.grade];
+      cell.dataset.grade = Number(cell.dataset.grade) + 1;
+      cell.style.backgroundColor = currentColor + currentGrade;
     }
   } else {
-    block.classList.add('gr10');
+    cell.style.backgroundColor = currentColor;
   }
 }
 
-function eraseGrid(block) {
-  onGrid ? block.className = 'block lining' : block.className = 'block';
-}
+function paintGrid() {
+  const cells = document.querySelectorAll('.cell');
+  let drawing;
 
-size.addEventListener('click', () => {
-  const input = Number(prompt('Number of squares per side? (Max: 100)'));
-
-  if (isNaN(input)) {
-    return alert('Please input number');
-  } else if (!input) {
-    return;
-  } else if (input > 100) {
-    return alert('Max number is 100');
-  } else if (input < 1) {
-    return alert('Min number is 1');
-  }  else if (!Number.isInteger(input)) {
-    return alert('Please input integer');
+  function handleMousedown(cell) {
+    drawing = true;
+    eraseBtn.classList.contains('active-btn') ? eraseGrid(cell) : addGradation(cell);
   }
 
-  num = input;
-  createGrid();
-});
-
-grid.addEventListener('click', () => {
-  onGrid ? onGrid = false : onGrid = true;
-  grid.classList.toggle('active');
-  blocks.forEach(block => {
-    block.classList.toggle('lining');
-  });
-});
-
-gradation.addEventListener('click', () => {
-  onGradation ? onGradation = false : onGradation = true;
-  gradation.classList.toggle('active');
-});
-
-erase.addEventListener('click', () => {
-  onErase ? onErase = false : onErase = true;
-  erase.classList.toggle('active');
-
-  blocks.forEach(block => {
-    block.addEventListener('mousedown', () => {
-      if (!onErase) return;
-      eraseGrid(block);
-      drawing = true;
-    });
+  function handleMouseenter(cell) {
+    if (drawing) {
+      eraseBtn.classList.contains('active-btn') ? eraseGrid(cell) : addGradation(cell);
+    }
+  }
   
-    document.body.addEventListener('mouseup', () => {
-      drawing = false;
-    });
+  cells.forEach((cell) => {
+    cell.addEventListener('mousedown', () => handleMousedown(cell));
+    cell.addEventListener('mouseenter', () => handleMouseenter(cell));
+  });
 
-    block.addEventListener('mouseenter', () => {
-      if (!onErase) return;
-      if (drawing) eraseGrid(block);
+  document.body.addEventListener('dragstart', (e) => e.preventDefault());
+  document.body.addEventListener('mouseup', () => drawing = false);
+}
+
+function createGrid() {
+  const squareSize = size * size;
+  container.innerHTML = '';
+
+  for (let i = 0; i < squareSize; i++) {
+    const cell = document.createElement('div');
+    cell.classList.add('cell');
+    cell.dataset.grade = '0';
+    cell.setAttribute('tabindex', '0');
+    cell.style.width = `calc(3rem * (16 / ${size})`;
+    cell.style.height = `calc(3rem * (16 / ${size})`;
+    container.appendChild(cell);
+
+    if (gridBtn.classList.contains('active-btn')) {
+      cell.classList.add('lining');
+    }
+  }
+
+  focusCell();
+  paintGrid();
+  sizeDisplay.textContent = `${size} * ${size}`;
+}
+
+function eraseGrid(cell) {
+  cell.dataset.grade = '0';
+  cell.style.backgroundColor = 'var(--sub-theme)';
+}
+
+function handleEvent(e) {
+  const cells = document.querySelectorAll('.cell');
+  let target = e.target;
+
+  if (target.classList.contains('icon')) {
+    target = target.parentElement;
+  }
+  
+  if (target.classList.contains('color-picker')) {
+    previousColor = colorPicker.value;
+  } else if (target.classList.contains('size-btn')) {
+    sizeBtn.classList.add('active-btn');
+    sizeIcon.classList.add('active-icon');
+    // Using setTimeout to prevent activating prompt before activating classList 'active-btn' and 'active-icon'. 
+    setTimeout(() => {
+      const inputNum = Number(prompt('Enter the canvas size. (Max: 100)'));
+      sizeBtn.classList.remove('active-btn');
+      sizeIcon.classList.remove('active-icon');
+
+      if (isNaN(inputNum)) {
+      return alert('Please input number');
+    } else if (!inputNum) {
+      return;
+    } else if (inputNum > 100) {
+      return alert('Max number is 100');
+    } else if (inputNum < 1) {
+      return alert('Min number is 1');
+    }  else if (!Number.isInteger(inputNum)) {
+      return alert('Please input integer');
+    }
+    
+    size = inputNum
+    createGrid();
+    }, 100);
+  } else if (target.classList.contains('grid-btn')) {
+    gridBtn.classList.toggle('active-btn');
+    gridIcon.classList.toggle('active-icon');
+    cells.forEach(cell => cell.classList.toggle('lining'));
+  } else if (target.classList.contains('gradation-btn')) {
+    gradationBtn.classList.toggle('active-btn');
+    gradationIcon.classList.toggle('active-icon');
+  } else if (target.classList.contains('erase-btn')) {
+    eraseBtn.classList.toggle('active-btn');
+    eraseIcon.classList.toggle('active-icon');
+    container.classList.toggle('erasing');
+  } else if (target.classList.contains('clear-btn')) {
+    cells.forEach(cell => eraseGrid(cell));
+    clearBtn.classList.add('active-btn');
+    clearIcon.classList.add('active-icon');
+    
+    setTimeout(() => {
+      clearBtn.classList.remove('active-btn');
+      clearIcon.classList.remove('active-icon');
+    }, 300);
+  }
+}
+
+function focusCell() {
+  const cells = document.querySelectorAll('.cell');
+
+  cells.forEach((cell, i) => {
+    cell.addEventListener('keydown', (e) => {
+      let cellIndex = null;
+
+      if (e.key === ' ' || e.key === 'Enter') {
+        eraseBtn.classList.contains('active-btn') ? eraseGrid(cell) : addGradation(cell);
+      } else if (e.key === 'ArrowLeft') {
+        if (i % size === 0) {
+          btns[0].focus();
+          return;
+        }
+
+        cellIndex = i - 1;
+
+        if (cellIndex < 0) {
+          cellIndex += cells.length;
+        }
+      } else if (e.key === 'ArrowRight') {
+        if (i % size === size - 1) {
+          btns[0].focus();
+          return;
+        }
+
+        cellIndex = i + 1;
+
+        if (cellIndex >= cells.length) {
+          cellIndex -= cells.length;
+        }
+      } else if (e.key === 'ArrowUp') {
+        cellIndex = i - size;
+
+        if (cellIndex < 0) {
+          cellIndex += cells.length;
+        }
+      } else if (e.key === 'ArrowDown') {
+        cellIndex = i + size;
+
+        if (cellIndex >= cells.length) {
+          cellIndex -= cells.length;
+        }
+      }
+
+      if (cellIndex !== null) {
+        cells[cellIndex].focus();
+      }
     });
   });
-});
+}
 
-clear.addEventListener('click', () => {
-  blocks.forEach(block => {
-    eraseGrid(block);
-  });
-});
+function focusBtn(e, i) {
+  const cells = document.querySelectorAll('.cell');
+  let btnIndex = 0;
+
+  if (e.key === 'ArrowLeft') {
+    cells[size - 1].focus();
+  } else if (e.key === 'ArrowRight') {
+    cells[0].focus();
+  } else if (e.key === 'ArrowUp') {
+    btnIndex = i - 1;
+
+    if (btnIndex < 0) {
+      btnIndex = btns.length - 1;
+    }
+
+    btns[btnIndex].focus();
+  } else if (e.key === 'ArrowDown') {
+    btnIndex = i + 1;
+
+    if (btnIndex >= btns.length) {
+      btnIndex = 0;
+    }
+
+    btns[btnIndex].focus();
+  }
+}
+
+function focusColorPicker(e) {
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+    const activeElement = document.activeElement;
+
+    if (activeElement === document.body) {
+      colorPicker.focus();
+    }
+  }
+}
+
+const btns = document.querySelectorAll('.btn');
+const colorPicker = document.querySelector('.color-picker');
+const sizeBtn = document.querySelector('.size-btn');
+const gridBtn = document.querySelector('.grid-btn');
+const gradationBtn = document.querySelector('.gradation-btn');
+const eraseBtn = document.querySelector('.erase-btn');
+const clearBtn = document.querySelector('.clear-btn');
+const sizeIcon = document.querySelector('.size-icon');
+const gridIcon = document.querySelector('.grid-icon');
+const gradationIcon = document.querySelector('.gradation-icon');
+const eraseIcon = document.querySelector('.erase-icon');
+const clearIcon = document.querySelector('.clear-icon');
+const container = document.querySelector('.container');
+const sizeDisplay = document.querySelector('.size-display');
+let previousColor = '#000000';
+let size = 16;
+
+btns.forEach((btn) => btn.addEventListener('click', handleEvent));
+btns.forEach((btn, i) => btn.addEventListener('keydown', (e) => focusBtn(e, i)));
+document.body.addEventListener('keydown', focusColorPicker);
+// Initial rendering.
+createGrid();

@@ -8,21 +8,24 @@
   <script src="etch-a-sketch.js" defer></script>
 </head>
 <body>
-  <h1>Odin Etch-a-Sketch</h1>
-  <main class="wrapper">
-    <section class="btn-container">
-      <button class="size">Size</button>
-      <button class="grid">Grid</button>
-      <button class="gradation">Gradation</button>
-      <button class="erase">Erase</button>
-      <button class="clear">Clear</button>
-    </section>
-    <section class="container"></section>
-    <div class="dummy-container"></div>
+  <main class="main">
+    <h1 class="title">Odin Etch-a-Sketch</h1>
+    <div class="wrapper">
+      <div class="btn-container">
+        <input class="btn color-picker" type="color">
+        <button class="btn size-btn"><img class="icon size-icon" src="./icons/arrow-left-right-bold.svg" alt="size-button"></button>
+        <button class="btn grid-btn"><img class="icon grid-icon" src="./icons/border-none.svg" alt="grid-button"></button>
+        <button class="btn gradation-btn"><img class="icon gradation-icon" src="./icons/gradient-vertical.svg" alt="gradation-button"></button>
+        <button class="btn erase-btn"><img class="icon erase-icon" src="./icons/eraser.svg" alt="erase-button"></button>
+        <button class="btn clear-btn"><img class="icon clear-icon" src="./icons/broom.svg" alt="clear-button"></button>
+      </div>
+      <div class="container"></div>
+      <div class="dummy-container"></div>
+    </div>
+    <div class="size-display"></div>
   </main>
-  <div class="size-display"></div>
-  <footer>
-    <small><a href="https://github.com/Daik102/etch-a-sketch" target="_blank">2025 Daik</a></small>
+  <footer class="footer">
+    <small><a class="portfolio-link" href="https://daik102.github.io/admin-dashboard/" target="_blank">2025 Daik</a></small>
   </footer>
 </body>
 </html>
