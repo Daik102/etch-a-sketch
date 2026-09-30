@@ -234,9 +234,9 @@ const gridIcon = document.querySelector('.grid-icon');
 const gradationIcon = document.querySelector('.gradation-icon');
 const eraseIcon = document.querySelector('.erase-icon');
 const clearIcon = document.querySelector('.clear-icon');
-const container = document.querySelector('.container');
+const container = document.querySelector('.drawing-container');
 const sizeDisplay = document.querySelector('.size-display');
-let previousColor = '#000000';
+let previousColor = '#000';
 let size = 16;
 
 btns.forEach((btn) => btn.addEventListener('click', handleEvent));
